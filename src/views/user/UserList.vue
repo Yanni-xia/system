@@ -32,7 +32,7 @@
         <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" size="mini" @click="editUser(scope.row.id)"></el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser(scope.row.id)"></el-button>
             <el-tooltip class="item" effect="dark" content="分配角色" placement="top" :enterable="false">
               <el-button type="warning" icon="el-icon-star-off" size="mini"></el-button>
             </el-tooltip>
@@ -102,7 +102,7 @@
   </div>
 </template>
 <script>
-import { getUserListData,putStatus,addUsers,getEditData, commitEditData } from 'network/home'
+import { getUserListData,putStatus,addUsers,getEditData, commitEditData,deleteUserData } from 'network/home'
 
 export default {
   name: 'UserList',
@@ -250,6 +250,27 @@ export default {
           this.$message.success('修改用户信息成功')
         })
       })
+    },
+    // 删除用户
+    deleteUser(id){
+      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteUserData(id)
+          .then(res => {
+            if(res.meta.status !== 200) return this.$message.error('删除用户失败')
+            this.$message.success('删除用户成功')
+            this.userListQuery.pagenum = 1
+            this.getUserList(this.userListQuery)
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
     }
   }
 }

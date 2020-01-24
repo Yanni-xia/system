@@ -42,3 +42,12 @@ export function commitEditData(id, data) {
     data: data
   })
 }
+
+// 删除用户
+export function deleteUserData(id) {
+  return axios({
+    url: 'users/' + id,
+    method: 'DELETE'
+  })
+
+}

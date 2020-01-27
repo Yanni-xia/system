@@ -4,6 +4,10 @@ import router from './router'
 import FastClick from 'fastclick'
 import VueLazyLoad from 'vue-lazyload'
 import iView from 'iview'
+// 下拉表格
+import table from 'vue-table-with-tree-grid'
+ 
+Vue.component('TableTree', table)
 
 import 'commons/plugins/element'
 

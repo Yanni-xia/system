@@ -76,3 +76,28 @@ export function deleteAttr(id, attrid) {
     method: 'DELETE'
   })
 }
+
+// 获取商品列表数据
+export function getGoodsList(data) {
+  return axios({
+    url: 'goods',
+    params: data
+  })
+}
+
+// 删除商品
+export function deleteGoods(id) {
+  return axios({
+    url: 'goods/' + id,
+    method: 'DELETE'
+  })
+}
+
+// 添加商品
+export function postGoods(data){
+  return axios({
+    url: 'goods',
+    method: 'POST',
+    data: data
+  })
+}
